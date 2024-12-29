@@ -9,14 +9,19 @@ const Signup = () => {
   const [error, setError] = useState("");
 
   const [user, setUser] = useState({
-    fullname: "",
     email: "",
     password: "",
   });
 
   const handleinputchange = (e) => {
     const { name, value } = e.target;
+
+    console.log(e.target);
+
     setUser((oldData) => ({ ...oldData, [name]: value }));
+
+    console.log(user);
+
   };
 
   const handleSignup = async (e) => {
@@ -24,14 +29,14 @@ const Signup = () => {
 
     try {
       const responce = await axios.post(
-        "http://localhost:7000/api/v1/user/signup",
+        "http://localhost:7000/api/v1/user/signin",
         user
       );
 
       console.log(responce);
 
       if (responce.data.success) {
-        navigate("/signin");
+        navigate("/");
         toast.success(responce.data.message); // Success toast
       } else {
         setError(responce.data.message);
